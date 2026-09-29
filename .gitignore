@@ -29,6 +29,7 @@ Desktop.ini
 *.jks
 *.keystore
 android/key.properties
+apps/**/android/key.properties
 
 # Flutter/Dart/Pub related
 **/doc/api/
@@ -77,10 +78,7 @@ coverage/
 **/web/build/
 
 # Melos / Monorepo specific
-pubspec.lock
+# Root pubspec.lock IS committed (application repo, not a library).
+# Package-level locks are excluded because melos manages resolution.
 packages/**/pubspec.lock
 apps/**/pubspec.lock
-!pubspec.lock
-
-#
-research_notes.md
