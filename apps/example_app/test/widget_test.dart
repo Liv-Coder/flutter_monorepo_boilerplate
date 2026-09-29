@@ -1,32 +1,58 @@
+import 'dart:io';
+
 import 'package:core/core.dart';
-import 'package:design_system/design_system.dart';
 import 'package:example_app/app.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:logger/logger.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:storage/storage.dart';
 
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
 
-  testWidgets('ExampleApp renders HomeScreen with design system',
-      (tester) async {
-    SharedPreferences.setMockInitialValues({});
+  late Directory tempDir;
+  late HiveStorageService storage;
 
+  setUpAll(() {
+    tempDir = Directory.systemTemp.createTempSync('example_widget_test_');
+    TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
+        .setMockMethodCallHandler(
+      const MethodChannel('plugins.flutter.io/path_provider'),
+      (MethodCall methodCall) async => tempDir.path,
+    );
+  });
+
+  setUp(() async {
+    storage = await HiveStorageService.init();
+  });
+
+  tearDown(() async {
+    await storage.close();
+  });
+
+  tearDownAll(() {
+    if (tempDir.existsSync()) {
+      tempDir.deleteSync(recursive: true);
+    }
+  });
+
+  testWidgets('ExampleApp renders home screen through the router',
+      (tester) async {
     final lines = <String>[];
     final logger = AppLogger(output: lines.add);
     final dioClient = DioClient(environment: Environment.dev);
-    final store = await KeyValueStore.create();
 
     await tester.pumpWidget(
       ExampleApp(
         logger: logger,
         dioClient: dioClient,
-        store: store,
+        storage: storage,
       ),
     );
+    await tester.pumpAndSettle();
 
     expect(find.text('Monorepo Demo'), findsOneWidget);
-    expect(find.byType(AppButton), findsWidgets);
-    expect(find.byType(AppCard), findsOneWidget);
+    expect(find.text('Open Details'), findsOneWidget);
+    expect(find.text('Open Settings'), findsOneWidget);
   });
 }

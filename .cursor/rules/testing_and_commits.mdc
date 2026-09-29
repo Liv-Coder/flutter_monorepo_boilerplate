@@ -1,0 +1,61 @@
+---
+description: Flutter Monorepo — testing and commit conventions. Applied to all Dart and YAML files.
+globs: ["**/*.dart", "**/*.yaml"]
+alwaysApply: true
+---
+
+# Flutter Monorepo — Testing & Commits
+
+## Testing
+
+Every feature or package change needs tests.
+
+```
+packages/<name>/
+├── lib/src/my_feature.dart
+└── test/my_feature_test.dart   ← mirror the lib/ structure
+```
+
+- Widget tests: `flutter_test`
+- Pure Dart tests: `package:test`
+- Run before any PR: `melos run test`
+
+```dart
+// packages/core/test/result_test.dart
+void main() {
+  test('Success holds value', () {
+    const r = Success(42);
+    expect(r.value, 42);
+  });
+
+  test('Failure holds error', () {
+    const r = Failure<int>('network error');
+    expect(r.error, 'network error');
+  });
+}
+```
+
+## Pre-commit checklist
+
+```sh
+melos run format   # fails if formatting is off
+melos run analyze  # fails on lint errors or warnings
+melos run test     # must be green
+```
+
+## Commit format
+
+```
+type(scope): short description
+```
+
+| Type | When |
+|---|---|
+| `feat` | new feature |
+| `fix` | bug fix |
+| `chore` | build, deps, config |
+| `refactor` | restructure without behavior change |
+| `test` | tests only |
+| `docs` | documentation only |
+
+Scope = package name: `feat(core): ...`, `fix(design_system): ...`

@@ -1,6 +1,7 @@
 import 'package:core/core.dart';
 import 'package:flutter/material.dart';
 import 'package:logger/logger.dart';
+import 'package:storage/storage.dart';
 
 import 'app.dart';
 
@@ -16,16 +17,16 @@ Future<void> main() async {
 
   const env = Environment.dev;
   final dioClient = DioClient(environment: env);
-  final store = await KeyValueStore.create();
+  final storage = await HiveStorageService.init();
 
-  logger.info('Environment: ${env.name}');
-  logger.info('Base URL: ${env.baseUrl}');
+  logger.info('Storage initialized — boxes: settings, cache, user_data');
+  logger.info('Environment: ${env.name} — baseUrl: ${env.baseUrl}');
 
   runApp(
     ExampleApp(
       logger: logger,
       dioClient: dioClient,
-      store: store,
+      storage: storage,
     ),
   );
 }

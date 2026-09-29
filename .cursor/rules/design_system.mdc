@@ -1,0 +1,68 @@
+---
+description: Flutter Monorepo — theming, spacing, typography, and shared widget rules. Applied to all Dart files.
+globs: "**/*.dart"
+alwaysApply: true
+---
+
+# Flutter Monorepo — UI & Design System
+
+Full rules: `DESIGN.md`. Compact reference below.
+
+## Theme — always use Theme.of(context)
+
+```dart
+// ✅ colors
+Theme.of(context).colorScheme.primary
+Theme.of(context).colorScheme.error
+
+// ✅ typography
+Theme.of(context).textTheme.bodyLarge
+Theme.of(context).textTheme.titleLarge
+
+// ❌ never
+Colors.blue  |  Color(0xFF...)  |  TextStyle(fontSize: 16)
+```
+
+## Spacing — AppSpacing tokens (xs=4, sm=8, md=16, lg=24, xl=32)
+
+```dart
+// ✅
+SizedBox(height: AppSpacing.md)
+Padding(padding: EdgeInsets.all(AppSpacing.sm))
+
+// ❌
+SizedBox(height: 16)
+```
+
+## Radii — AppRadius tokens (sm=4, md=8, lg=12, xl=16, full=999)
+
+```dart
+// ✅
+BorderRadius.circular(AppRadius.lg)
+AppRadius.mdAll  // pre-built BorderRadius
+
+// ❌
+BorderRadius.circular(12)
+```
+
+## Shared components
+
+Use `AppButton`, `AppCard`, `AppTextField` from `design_system`.
+If they don't fit — extend them in the package, not in the app.
+
+## Responsive
+
+- `MediaQuery.sizeOf(context)` for screen-level breakpoints
+- `LayoutBuilder` for widget-level adaptation
+- Breakpoints: < 600 mobile / 600–839 tablet / 840+ desktop
+
+## Theming the app
+
+```dart
+// ✅
+MaterialApp.router(
+  theme: AppTheme.light(),
+  darkTheme: AppTheme.dark(),
+  themeMode: ThemeMode.system,
+)
+```

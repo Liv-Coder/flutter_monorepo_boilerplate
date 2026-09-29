@@ -45,6 +45,7 @@ coverage/
 # Android related
 **/android/**/gradle-wrapper.jar
 **/android/.gradle
+**/android/.kotlin/
 **/android/captures/
 **/android/local.properties
 **/android/**/GeneratedPluginRegistrant.java

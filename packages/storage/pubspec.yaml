@@ -1,0 +1,24 @@
+name: storage
+description: Centralized Hive-backed local storage. One service, all boxes, typed accessors.
+version: 1.0.0
+publish_to: none
+
+environment:
+  sdk: ^3.6.0
+  flutter: ">=3.27.0"
+
+resolution: workspace
+
+dependencies:
+  flutter:
+    sdk: flutter
+  hive_ce: ^2.20.1
+  hive_ce_flutter: ^2.3.4
+  path_provider: ^2.1.4
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^5.0.0
+  hive_ce_generator: 1.11.1
+  build_runner: ^2.4.13

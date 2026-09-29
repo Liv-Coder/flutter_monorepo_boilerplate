@@ -1,0 +1,24 @@
+---
+description: Flutter Monorepo — quick-start pointer. Applied to all Dart files.
+globs: "**/*.dart"
+alwaysApply: true
+---
+
+# Flutter Monorepo Standards
+
+Read `AGENTS.md` and `DESIGN.md` before writing any code.
+
+Detailed rules are split across companion files in `.cursor/rules/`:
+
+| File | Covers |
+|---|---|
+| `monorepo_architecture.mdc` | Repo structure, must-use packages, import rules, Melos |
+| `design_system.mdc` | Theme, spacing, radii, responsive layout, shared widgets |
+| `logging_and_errors.mdc` | AppLogger usage, Result<T>, error boundaries |
+| `testing_and_commits.mdc` | Test structure, pre-commit checks, commit format |
+
+Quick rules:
+- Never `print()`. Use `AppLogger`.
+- Never hardcode colors/sizes. Use `Theme.of(context)` and `AppSpacing`/`AppRadius`.
+- Always import from `package:foo/foo.dart`, never from `package:foo/src/...`.
+- Extend shared packages rather than duplicating logic in apps.

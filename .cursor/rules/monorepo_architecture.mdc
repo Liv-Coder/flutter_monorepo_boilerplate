@@ -1,0 +1,41 @@
+---
+description: Flutter Monorepo — architecture, packages, imports, and Melos workflow. Applied to all Dart files.
+globs: "**/*.dart"
+alwaysApply: true
+---
+
+# Flutter Monorepo — Architecture & Imports
+
+## Startup
+Before writing any code, read:
+- `AGENTS.md` — agent rules, package table, logging, error handling
+- `DESIGN.md` — theming, spacing, typography, shared components
+
+## Repo layout
+```
+apps/       ← app-specific wiring only (DI, flavors, assets)
+packages/   ← all reusable logic; packages never depend on apps/
+```
+
+## Must-use packages
+
+| Need | Package | Import |
+|---|---|---|
+| Logging | `logger` | `import 'package:logger/logger.dart';` |
+| HTTP | `core` | `import 'package:core/core.dart';` |
+| Error handling | `core` | `Result<T>`, `Success`, `Failure` |
+| Local storage | `storage` | `import 'package:storage/storage.dart';` |
+| Navigation | `routing` | `import 'package:routing/routing.dart';` |
+| UI system | `design_system` | `import 'package:design_system/design_system.dart';` |
+
+## Import rules
+- Import only from the public barrel file: `package:foo/foo.dart`
+- Never use deep-link imports: `package:foo/src/...`
+- No cross-feature imports between features in the same app
+
+## After pubspec changes
+Always run `melos bootstrap`, never `flutter pub get` in a single package.
+
+## Commits
+Format: `type(scope): description`
+Examples: `feat(core): add retry`, `fix(design_system): card radius`

@@ -1,0 +1,55 @@
+---
+description: Flutter Monorepo — logging and error-handling rules. Applied to all Dart files.
+globs: "**/*.dart"
+alwaysApply: true
+---
+
+# Flutter Monorepo — Logging & Error Handling
+
+## Logging — use AppLogger only
+
+```dart
+import 'package:logger/logger.dart';
+
+// ✅ correct
+final logger = AppLogger(minLevel: LogLevel.debug);
+logger.info('User signed in — userId: ${user.id}');
+logger.warning('Cache miss');
+logger.error('Request failed', exception, stackTrace);
+
+// ❌ never
+print('...');
+debugPrint('...');
+```
+
+Rules:
+- Include meaningful context (what, where, relevant IDs).
+- Never log passwords, tokens, PII, or raw response bodies.
+- Release builds: set minLevel to LogLevel.info or higher.
+- Level guide: debug=noise / info=lifecycle / warning=degraded / error=failure / fatal=crash
+
+## Error handling — use Result<T>
+
+```dart
+import 'package:core/core.dart';
+
+// ✅ correct — at service/repository boundaries
+Future<Result<User>> fetchUser(String id) async {
+  try {
+    return Success(User.fromJson(await _api.getUser(id)));
+  } catch (e, st) {
+    _logger.error('fetchUser failed', e, st);
+    return Failure(e);
+  }
+}
+
+// Caller uses pattern matching
+switch (await fetchUser(id)) {
+  case Success(:final value): showUser(value);
+  case Failure(:final error): showError(error);
+}
+
+// ❌ wrong — throws across feature boundaries
+Future<User> fetchUser(String id) async =>
+    User.fromJson(await _api.getUser(id));
+```

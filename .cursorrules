@@ -1,36 +1,49 @@
 # Flutter Monorepo — Cursor Rules
+# Full rules: AGENTS.md + DESIGN.md (read them before coding)
+
+## Startup
+- Read AGENTS.md, DESIGN.md, and the README for every package you touch.
+- When in doubt: ask. Never guess.
 
 ## Architecture
+- Melos monorepo: apps/ for app code, packages/ for shared logic.
+- Packages never depend on apps/.
+- After pubspec changes: `melos bootstrap` (not `flutter pub get`).
+- No cross-feature imports. Use shared packages or public APIs.
 
-- This is a Melos monorepo. Packages live in `packages/`, apps in `apps/`.
-- Apps depend on packages. Packages never depend on apps.
-- Run `melos bootstrap` after any pubspec change. Never `flutter pub get` in a single package.
+## Packages — always use, never re-implement
+- `logger`        → AppLogger (debug/info/warning/error/fatal)
+- `core`          → DioClient, Result<T>, Environment, KeyValueStore
+- `design_system` → AppTheme, AppSpacing, AppRadius, AppButton, AppCard, AppTextField
+- `storage`       → HiveStorageService
+- `routing`       → GoRouter entry points
+- Import from barrel only: package:foo/foo.dart (never package:foo/src/...)
 
-## Packages
+## Logging
+- No print() or debugPrint() in production code. Use AppLogger.
+- Include context (what, where, relevant IDs). Never log PII/tokens.
 
-- `core` — pure Dart + Flutter utilities: Result, Dio client, KeyValueStore, Environment.
-- `design_system` — tokens, themes, components. No business logic.
-- `logger` — pure Dart, no Flutter dependency.
+## UI
+- Colors: Theme.of(context).colorScheme.* only. No Colors.* or Color(0xFF...).
+- Typography: Theme.of(context).textTheme.* only. No raw TextStyle sizes.
+- Spacing: AppSpacing.* (xs=4, sm=8, md=16, lg=24, xl=32, xxl=48, xxxl=64).
+- Radii: AppRadius.* (sm=4, md=8, lg=12, xl=16, full=999).
+- Responsive: MediaQuery.sizeOf(context) for screen, LayoutBuilder for widget.
+
+## Error handling
+- Return Result<T> at service/repo boundaries. Pattern-match at the call site.
+- Do not throw exceptions across feature boundaries.
 
 ## Code style
-
-- Strict Dart: null safety, sealed classes for Result, pattern matching.
-- No `print()`. Use `AppLogger`.
-- Prefer `const` constructors, `final` fields, single quotes.
-- Use `AppSpacing` and `AppRadius` tokens instead of magic numbers.
+- Strict null safety. Sealed classes for Result. Pattern matching.
+- Prefer const constructors and final fields. Single quotes.
 - Every public API has a doc comment.
 
-## State management
-
-- This boilerplate does not prescribe a state management framework. If one is added, document it here before writing feature code.
-
 ## Testing
-
-- Every package has a `test/` directory mirroring `lib/`.
-- Widget tests use `flutter_test`. Pure Dart tests use `package:test`.
-- Run `melos run test` before opening a PR.
+- Every new feature/package change needs a test mirroring lib/ structure.
+- Widget tests: flutter_test. Pure Dart: package:test.
+- Run: melos run format && melos run analyze && melos run test
 
 ## Commits
-
-- Conventional commits: `feat:`, `fix:`, `chore:`, `refactor:`, `test:`.
-- Scope by package: `feat(core): add timeout retry interceptor`.
+- Conventional commits with scope: feat(core): add retry interceptor
+- Types: feat / fix / chore / refactor / test / docs
