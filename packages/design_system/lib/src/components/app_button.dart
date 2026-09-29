@@ -21,6 +21,8 @@ class AppButton extends StatelessWidget {
   final VoidCallback? onPressed;
   final AppButtonVariant variant;
   final bool isLoading;
+
+  /// Optional icon. Pass a value from AppIcons, e.g. `AppIcons.save`.
   final IconData? icon;
 
   @override

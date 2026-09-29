@@ -15,7 +15,7 @@ class DetailsScreen extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Details'),
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back),
+          icon: const Icon(AppIcons.back),
           onPressed: () => context.pop(),
         ),
       ),
@@ -24,16 +24,19 @@ class DetailsScreen extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
-            const Text('Details Screen', style: AppTypography.heading2),
+            Text(
+              'Details Screen',
+              style: Theme.of(context).textTheme.headlineMedium,
+            ),
             const SizedBox(height: AppSpacing.md),
-            const Text(
+            Text(
               'This screen lives at /details and is reached via named routing.',
-              style: AppTypography.body,
+              style: Theme.of(context).textTheme.bodyLarge,
             ),
             const SizedBox(height: AppSpacing.lg),
             AppButton(
               label: 'Back to Home',
-              icon: Icons.home,
+              icon: AppIcons.home,
               onPressed: () => context.go('/'),
             ),
           ],

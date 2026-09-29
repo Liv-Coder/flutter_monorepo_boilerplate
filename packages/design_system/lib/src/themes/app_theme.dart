@@ -19,12 +19,13 @@ class AppTheme {
         surface: AppColors.surface,
         error: AppColors.error,
       ),
-      textTheme: const TextTheme(
+      textTheme: TextTheme(
         displayLarge: AppTypography.heading1,
         headlineMedium: AppTypography.heading2,
         titleLarge: AppTypography.heading3,
         bodyLarge: AppTypography.body,
         bodyMedium: AppTypography.bodySmall,
+        bodySmall: AppTypography.caption,
         labelLarge: AppTypography.label,
       ),
       appBarTheme: const AppBarTheme(
@@ -66,12 +67,13 @@ class AppTheme {
         surface: AppColors.surfaceDark,
         error: AppColors.error,
       ),
-      textTheme: const TextTheme(
+      textTheme: TextTheme(
         displayLarge: AppTypography.heading1,
         headlineMedium: AppTypography.heading2,
         titleLarge: AppTypography.heading3,
         bodyLarge: AppTypography.body,
         bodyMedium: AppTypography.bodySmall,
+        bodySmall: AppTypography.caption,
         labelLarge: AppTypography.label,
       ),
       appBarTheme: const AppBarTheme(

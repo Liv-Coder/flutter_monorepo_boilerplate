@@ -12,12 +12,16 @@ class ExampleApp extends StatefulWidget {
     required this.logger,
     required this.dioClient,
     required this.storage,
+    this.theme,
+    this.darkTheme,
     super.key,
   });
 
   final AppLogger logger;
   final DioClient dioClient;
   final HiveStorageService storage;
+  final ThemeData? theme;
+  final ThemeData? darkTheme;
 
   @override
   State<ExampleApp> createState() => _ExampleAppState();
@@ -32,11 +36,14 @@ class _ExampleAppState extends State<ExampleApp> {
 
   @override
   Widget build(BuildContext context) {
+    final lightTheme = widget.theme ?? AppTheme.light();
+    final darkTheme =
+        widget.darkTheme ?? (widget.theme != null ? null : AppTheme.dark());
     return MaterialApp.router(
       title: 'Monorepo Example',
       debugShowCheckedModeBanner: false,
-      theme: AppTheme.light(),
-      darkTheme: AppTheme.dark(),
+      theme: lightTheme,
+      darkTheme: darkTheme,
       routerConfig: _router,
     );
   }

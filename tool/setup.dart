@@ -128,24 +128,24 @@ Future<void> main(List<String> args) async {
     );
   }
 
-  final pascal = _toPascalCase(slug);        // my_app → MyApp
-  final camel = _toCamelCase(slug);          // my_app → myApp
-  final androidSuffix = slug;                // my_app  (snake_case)
-  final iosSuffix = camel;                   // myApp   (camelCase)
-  final rootName = '${slug}_monorepo';       // my_app_monorepo
+  final pascal = _toPascalCase(slug); // my_app → MyApp
+  final camel = _toCamelCase(slug); // my_app → myApp
+  final androidSuffix = slug; // my_app  (snake_case)
+  final iosSuffix = camel; // myApp   (camelCase)
+  final rootName = '${slug}_monorepo'; // my_app_monorepo
 
   // ── Preview ──────────────────────────────────────────────────────────────
   stdout.writeln('');
   stdout.writeln('Changes that will be applied:');
   stdout.writeln('');
-  _row('Folder',           'apps/$_templateAppSlug',           'apps/$slug');
-  _row('Package name',     _templateAppSlug,                   slug);
-  _row('Root widget',      _templateAppPascal,                 pascal);
-  _row('Display name',     _templateDisplayName,               displayName);
-  _row('Org ID',           _templateOrgId,                     org);
-  _row('Android suffix',   _templateAndroidSuffix,             androidSuffix);
-  _row('iOS suffix',       _templateIosSuffix,                 iosSuffix);
-  _row('Root name',        _templateRootName,                  rootName);
+  _row('Folder', 'apps/$_templateAppSlug', 'apps/$slug');
+  _row('Package name', _templateAppSlug, slug);
+  _row('Root widget', _templateAppPascal, pascal);
+  _row('Display name', _templateDisplayName, displayName);
+  _row('Org ID', _templateOrgId, org);
+  _row('Android suffix', _templateAndroidSuffix, androidSuffix);
+  _row('iOS suffix', _templateIosSuffix, iosSuffix);
+  _row('Root name', _templateRootName, rootName);
   stdout.writeln('');
 
   final confirm = _prompt('Proceed? (y/N)', 'n');
@@ -165,23 +165,20 @@ Future<void> main(List<String> args) async {
   // could be substrings (e.g. the iOS suffix before the plain org).
   final replacements = <String, String>{
     // Native identifiers — most specific first
-    '$_templateOrgId.$_templateIosSuffix.RunnerTests':
-        '$org.${iosSuffix}Tests',
-    '$_templateOrgId.$_templateIosSuffix':
-        '$org.$iosSuffix',
-    '$_templateOrgId.$_templateAndroidSuffix':
-        '$org.$androidSuffix',
+    '$_templateOrgId.$_templateIosSuffix.RunnerTests': '$org.${iosSuffix}Tests',
+    '$_templateOrgId.$_templateIosSuffix': '$org.$iosSuffix',
+    '$_templateOrgId.$_templateAndroidSuffix': '$org.$androidSuffix',
 
     // Dart / package identifiers
-    _templateAppPascal:    pascal,
-    _templateDisplayName:  displayName,
-    _templateAppSlug:      slug,
+    _templateAppPascal: pascal,
+    _templateDisplayName: displayName,
+    _templateAppSlug: slug,
 
     // Root monorepo name
-    _templateRootName:     rootName,
+    _templateRootName: rootName,
 
     // Bare org (catches any remaining com.example occurrences)
-    _templateOrgId:        org,
+    _templateOrgId: org,
   };
 
   // ── Step 3: Walk and rewrite text files ───────────────────────────────────

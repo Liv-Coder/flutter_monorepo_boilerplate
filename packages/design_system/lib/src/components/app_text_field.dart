@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 
-/// Text input with consistent styling and validation slot.
+/// Text input with consistent styling, validation, and optional icons.
+///
+/// Use the prefixIcon and suffixIcon parameters with values from AppIcons
+/// to maintain icon consistency across the app.
 class AppTextField extends StatelessWidget {
   const AppTextField({
     required this.label,
@@ -9,6 +12,8 @@ class AppTextField extends StatelessWidget {
     this.validator,
     this.obscureText = false,
     this.keyboardType,
+    this.prefixIcon,
+    this.suffixIcon,
     super.key,
   });
 
@@ -18,6 +23,12 @@ class AppTextField extends StatelessWidget {
   final String? Function(String?)? validator;
   final bool obscureText;
   final TextInputType? keyboardType;
+
+  /// Optional leading icon. Pass a value from AppIcons.
+  final IconData? prefixIcon;
+
+  /// Optional trailing icon. Pass a value from AppIcons.
+  final IconData? suffixIcon;
 
   @override
   Widget build(BuildContext context) {
@@ -29,6 +40,8 @@ class AppTextField extends StatelessWidget {
       decoration: InputDecoration(
         labelText: label,
         hintText: hint,
+        prefixIcon: prefixIcon != null ? Icon(prefixIcon) : null,
+        suffixIcon: suffixIcon != null ? Icon(suffixIcon) : null,
       ),
     );
   }
