@@ -1,0 +1,17 @@
+name: flutter_monorepo
+description: Production-ready Flutter monorepo with modular packages.
+publish_to: none
+version: 1.0.0
+
+environment:
+  sdk: ^3.6.0
+  flutter: ">=3.27.0"
+
+workspace:
+  - apps/example_app
+  - packages/core
+  - packages/design_system
+  - packages/logger
+
+dev_dependencies:
+  melos: ^7.0.0

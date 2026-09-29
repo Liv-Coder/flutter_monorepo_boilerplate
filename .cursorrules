@@ -1,0 +1,36 @@
+# Flutter Monorepo — Cursor Rules
+
+## Architecture
+
+- This is a Melos monorepo. Packages live in `packages/`, apps in `apps/`.
+- Apps depend on packages. Packages never depend on apps.
+- Run `melos bootstrap` after any pubspec change. Never `flutter pub get` in a single package.
+
+## Packages
+
+- `core` — pure Dart + Flutter utilities: Result, Dio client, KeyValueStore, Environment.
+- `design_system` — tokens, themes, components. No business logic.
+- `logger` — pure Dart, no Flutter dependency.
+
+## Code style
+
+- Strict Dart: null safety, sealed classes for Result, pattern matching.
+- No `print()`. Use `AppLogger`.
+- Prefer `const` constructors, `final` fields, single quotes.
+- Use `AppSpacing` and `AppRadius` tokens instead of magic numbers.
+- Every public API has a doc comment.
+
+## State management
+
+- This boilerplate does not prescribe a state management framework. If one is added, document it here before writing feature code.
+
+## Testing
+
+- Every package has a `test/` directory mirroring `lib/`.
+- Widget tests use `flutter_test`. Pure Dart tests use `package:test`.
+- Run `melos run test` before opening a PR.
+
+## Commits
+
+- Conventional commits: `feat:`, `fix:`, `chore:`, `refactor:`, `test:`.
+- Scope by package: `feat(core): add timeout retry interceptor`.

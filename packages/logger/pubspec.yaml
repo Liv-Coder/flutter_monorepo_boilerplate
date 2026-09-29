@@ -1,0 +1,13 @@
+name: logger
+description: Configurable logging utility with multiple log levels.
+version: 1.0.0
+publish_to: none
+
+environment:
+  sdk: ^3.6.0
+
+resolution: workspace
+
+dev_dependencies:
+  test: ^1.25.0
+  flutter_lints: ^5.0.0

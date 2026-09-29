@@ -1,0 +1,85 @@
+# Miscellaneous
+*.class
+*.log
+*.pyc
+*.swp
+.DS_Store
+.atom/
+.buildlog/
+.history
+.svn/
+Thumbs.db
+Desktop.ini
+*.bak
+*.tmp
+*.temp
+
+# IntelliJ / Android Studio
+*.iml
+*.ipr
+*.iws
+.idea/
+
+# VS Code
+.vscode/
+
+# Environment Variables & Secrets
+.env
+.env.*
+*.jks
+*.keystore
+android/key.properties
+
+# Flutter/Dart/Pub related
+**/doc/api/
+.dart_tool/
+.flutter-plugins
+.flutter-plugins-dependencies
+.packages
+.pub-cache/
+.pub/
+/build/
+**/build/
+coverage/
+
+# Android related
+**/android/**/gradle-wrapper.jar
+**/android/.gradle
+**/android/captures/
+**/android/local.properties
+**/android/**/GeneratedPluginRegistrant.java
+
+# iOS/XCode related
+**/ios/**/*.mode1v3
+**/ios/**/*.mode2v3
+**/ios/**/*.pbxuser
+**/ios/**/*.perspectivev3
+**/ios/Flutter/.last_build_id
+**/ios/Flutter/app.flx
+**/ios/Flutter/app.zip
+**/ios/Flutter/Generated.xcconfig
+**/ios/Pods/
+**/ios/.symlinks/
+
+# MacOS
+**/macos/Flutter/ephemeral
+**/macos/Flutter/GeneratedPluginRegistrant.swift
+**/macos/Pods/
+
+# Linux
+**/linux/flutter/ephemeral
+
+# Windows
+**/windows/flutter/ephemeral
+
+# Web
+**/web/build/
+
+# Melos / Monorepo specific
+pubspec.lock
+packages/**/pubspec.lock
+apps/**/pubspec.lock
+!pubspec.lock
+
+#
+research_notes.md

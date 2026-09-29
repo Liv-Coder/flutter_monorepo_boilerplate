@@ -1,0 +1,39 @@
+name: flutter_monorepo
+repository: https://github.com/your-org/flutter_monorepo
+
+packages:
+  - apps/**
+  - packages/**
+
+scripts:
+  analyze:
+    run: melos exec -- flutter analyze
+    description: Run static analysis across all packages.
+
+  format:
+    run: melos exec -- dart format --set-exit-if-changed .
+    description: Verify formatting across all packages.
+
+  test:
+    run: melos exec --dir-exists=test -- flutter test
+    description: Run tests in all packages that have a test directory.
+
+  test:coverage:
+    run: melos exec --dir-exists=test -- flutter test --coverage
+    description: Run tests with coverage.
+
+  fix:
+    run: melos exec -- dart fix --apply
+    description: Apply automated fixes across all packages.
+
+  pub:get:
+    run: melos bootstrap
+    description: Resolve all dependencies and link local packages.
+
+command:
+  bootstrap:
+    usePubspecOverrides: true
+
+  version:
+    branch: main
+    linkToCommits: true
