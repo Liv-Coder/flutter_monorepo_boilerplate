@@ -24,9 +24,11 @@ The package exports:
 | `AppTheme.light()` / `AppTheme.dark()` | Material 3 `ThemeData` — wire into `MaterialApp` |
 | `AppColors` | Raw color constants (use via theme, not directly) |
 | `AppTypography` | `TextStyle` constants (use via `textTheme`, not directly) |
+| `AppFonts` | Font family names powering Google Fonts typography |
 | `AppSpacing` | Spacing scale (xs→xxxl) |
 | `AppRadius` | Corner radius scale + pre-built `BorderRadius` values |
-| `AppButton` | Primary action button |
+| `AppIcons` | Curated Lucide semantic icon set |
+| `AppButton` | Primary / secondary / outline / danger CTA button |
 | `AppCard` | Surface card with consistent elevation and rounding |
 | `AppTextField` | Styled text input |
 
@@ -134,10 +136,15 @@ Use `AppRadius` constants. Pre-built `BorderRadius` values are also available.
 | `AppRadius.xl` | 16 |
 | `AppRadius.full` | 999 (pill / fully circular) |
 
+Pre-built `BorderRadius` instances are available: `AppRadius.smAll`, `AppRadius.mdAll`, `AppRadius.lgAll`, `AppRadius.xlAll`, and `AppRadius.fullAll`.
+
 ```dart
 // ✅ correct — use pre-built BorderRadius
 Container(
   decoration: BoxDecoration(borderRadius: AppRadius.lgAll),
+)
+Container(
+  decoration: BoxDecoration(borderRadius: AppRadius.fullAll),
 )
 
 // ✅ also correct — construct from scalar
@@ -184,7 +191,30 @@ ElevatedButton(
 
 ---
 
-## 7. Theming your App
+## 7. Icons
+
+Use `AppIcons` for all icons across features. `AppIcons` provides a curated,
+semantic icon set backed by Lucide (`lucide_icons_flutter`). Do not use raw
+`Icons.*` in feature code.
+
+```dart
+// ✅ correct — semantic icons from the design system
+Icon(AppIcons.home)
+Icon(AppIcons.settings)
+AppButton(
+  label: 'Back',
+  icon: AppIcons.back,
+  onPressed: context.pop,
+)
+
+// ❌ wrong — raw Material icons
+Icon(Icons.home)
+Icon(Icons.settings)
+```
+
+---
+
+## 8. Theming your App
 
 Wire `AppTheme` into `MaterialApp` at app startup. Do not build a custom
 `ThemeData` inline in the app.
@@ -211,7 +241,7 @@ MaterialApp(
 
 ---
 
-## 8. Responsive Layouts
+## 9. Responsive Layouts
 
 Every screen must be usable on mobile, tablet, and (where applicable) desktop.
 
@@ -253,7 +283,7 @@ LayoutBuilder(
 
 ---
 
-## 9. What Is Prohibited
+## 10. What Is Prohibited
 
 | Prohibited | Use instead |
 |---|---|
@@ -262,13 +292,14 @@ LayoutBuilder(
 | `TextStyle(fontSize: ...)` in feature code | `Theme.of(context).textTheme.*` |
 | Magic spacing numbers (`16`, `24`) | `AppSpacing.*` |
 | Magic radius numbers (`8`, `12`) | `AppRadius.*` |
+| Raw Material icons (`Icons.*`) | `AppIcons.*` from `design_system` |
 | `print()` / `debugPrint()` | `AppLogger` from `package:logger` |
 | App-specific copies of shared widgets | Extend the shared widget in `design_system` |
 | Inline `ThemeData` in `MaterialApp` | `AppTheme.light()` / `AppTheme.dark()` |
 
 ---
 
-## 10. Adding to the Design System
+## 11. Adding to the Design System
 
 When you need a new token, component, or theme extension:
 

@@ -15,7 +15,7 @@ description: "Must-use packages, import rules, and architecture constraints for 
 | App environment | `core` | `Environment.dev/.staging/.prod` |
 | Local storage | `storage` | `HiveStorageService` |
 | Navigation | `routing` | GoRouter via `routing` package |
-| UI tokens & themes | `design_system` | `AppSpacing`, `AppRadius`, `AppColors`, `AppTypography` |
+| UI tokens & themes | `design_system` | `AppSpacing`, `AppRadius`, `AppColors`, `AppTypography`, `AppIcons`, `AppFonts` |
 | Shared widgets | `design_system` | `AppButton`, `AppCard`, `AppTextField` |
 
 **If a package doesn't have what you need — extend it there, not in the app.**

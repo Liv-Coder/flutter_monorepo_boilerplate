@@ -60,7 +60,7 @@ re-implement anything already provided there.
 | App environment | `core` | `Environment.dev/.staging/.prod` |
 | Local storage | `storage` | `HiveStorageService` |
 | Navigation | `routing` | GoRouter via `routing` package |
-| UI tokens & themes | `design_system` | `AppSpacing`, `AppRadius`, `AppColors`, `AppTypography` |
+| UI tokens & themes | `design_system` | `AppSpacing`, `AppRadius`, `AppColors`, `AppTypography`, `AppIcons`, `AppFonts` |
 | Shared widgets | `design_system` | `AppButton`, `AppCard`, `AppTextField` |
 
 > **If a shared package is missing a feature, extend it there — not in the app.**
